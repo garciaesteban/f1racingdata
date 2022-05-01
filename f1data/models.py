@@ -86,7 +86,7 @@ class SprintResult(models.Model):
 class Driver(models.Model):
     driver_id = models.IntegerField()
     driver_ref = models.CharField(max_length=255)
-    number = models.IntegerField()
+    number = models.IntegerField(null=True)
     code = models.CharField(max_length=3)
     forename = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
