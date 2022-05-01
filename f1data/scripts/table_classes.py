@@ -34,3 +34,15 @@ class DriverTable:
 
     def __str__(self):
         return f"{self.driverId} {self.driverRef} {self.number} {self.code} {self.forename} {self.surname} {self.dob} {self.nationality}"
+
+
+class ConstructorTable:
+    def __init__(self, constructorId, constructorRef, name, nationality, url):
+        self.constructorId = constructorId
+        self.constructorRef = constructorRef
+        self.name = name
+        self.nationality = nationality
+        self.url = url
+
+    def __str__(self):
+        return f"{self.constructorId} {self.constructorRef} {self.name} {self.nationality} {self.url}"
