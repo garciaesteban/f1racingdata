@@ -46,3 +46,21 @@ class ConstructorTable:
 
     def __str__(self):
         return f"{self.constructorId} {self.constructorRef} {self.name} {self.nationality} {self.url}"
+
+
+class CircuitTable:
+    def __init__(
+        self, circuitId, circuitRef, name, location, country, lat, lng, alt, url
+    ):
+        self.circuitId = circuitId
+        self.circuitRef = circuitRef
+        self.name = name
+        self.location = location
+        self.country = country
+        self.lat = lat
+        self.lng = lng
+        self.alt = alt
+        self.url = url
+
+    def __str__(self):
+        return f"{self.circuitId} {self.circuitRef} {self.name} {self.location}"

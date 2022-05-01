@@ -22,3 +22,7 @@ def run():
     for constructor in constructors:
         temp_constructor = ConstructorTable(**constructor)
         constructors_dict[temp_constructor.constructorId] = temp_constructor
+
+    for circuit in circuits:
+        temp_circuit = CircuitTable(**circuit)
+        circuits_dict[temp_circuit.circuitId] = temp_circuit
