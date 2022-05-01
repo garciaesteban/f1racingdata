@@ -8,12 +8,15 @@ def run():
     drivers = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/drivers.csv")
     constructors = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/constructors.csv")
     circuits = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/circuits.csv")
+    seasons = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/seasons.csv")
     drivers = csv.DictReader(drivers)
     constructors = csv.DictReader(constructors)
     circuits = csv.DictReader(circuits)
+    seasons = csv.DictReader(seasons)
     drivers_dict = {}
     constructors_dict = {}
     circuits_dict = {}
+    seasons_dict = {}
 
     for driver in drivers:
         temp_driver = DriverTable(**driver)
@@ -26,3 +29,7 @@ def run():
     for circuit in circuits:
         temp_circuit = CircuitTable(**circuit)
         circuits_dict[temp_circuit.circuitId] = temp_circuit
+
+    for season in seasons:
+        temp_season = SeasonTable(**season)
+        seasons_dict[temp_season.year] = temp_season

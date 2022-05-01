@@ -64,3 +64,12 @@ class CircuitTable:
 
     def __str__(self):
         return f"{self.circuitId} {self.circuitRef} {self.name} {self.location}"
+
+
+class SeasonTable:
+    def __init__(self, year, url):
+        self.year = year
+        self.url = url
+
+    def __str__(self):
+        return f"{self.year} {self.url}"
