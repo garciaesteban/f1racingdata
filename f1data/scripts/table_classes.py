@@ -1,5 +1,17 @@
 from datetime import datetime
+from django.utils.timezone import make_aware, utc
 
+def format_date(date):
+    temp_date = datetime.strptime(date, "%Y-%m-%d")
+    return temp_date.date()
+
+def format_time(time):
+    if time != "\\N":
+        temp_time = datetime.strptime(time, "%H:%M:%S").time()
+        temp_time = temp_time.replace(tzinfo=utc)
+    else:
+        temp_time = None
+    return temp_time
 
 class DriverTable:
     def __init__(
@@ -21,8 +33,8 @@ class DriverTable:
         self.nationality = nationality
         self.url = url
 
-        dob = datetime.strptime(dob, "%Y-%m-%d")
-        self.dob = dob.date()
+        dob = format_date(dob)
+        self.dob = dob
         if number != "\\N":
             self.number = number
         else:
@@ -73,3 +85,89 @@ class SeasonTable:
 
     def __str__(self):
         return f"{self.year} {self.url}"
+
+
+class RaceTable:
+    def __init__(
+        self,
+        raceId,
+        year,
+        round,
+        circuitId,
+        name,
+        date,
+        time,
+        url,
+        fp1_date,
+        fp1_time,
+        fp2_date,
+        fp2_time,
+        fp3_date,
+        fp3_time,
+        quali_date,
+        quali_time,
+        sprint_date,
+        sprint_time
+    ):
+        self.raceId = raceId
+        self.year = year
+        self.round = round
+        self.circuitId = circuitId
+        self.name = name
+        self.date = date
+        self.url = url
+
+        if time != "\\N":
+            time = format_time(time)
+            self.time = time
+        else:
+            self.time = None
+
+        if fp1_date != "\\N":
+            temp_date = format_date(fp1_date)
+            temp_time = format_time(fp1_time)
+            self.fp1_date = temp_date
+            self.fp1_time = temp_time
+        else:
+            self.fp1_date = None
+            self.fp1_time = None
+
+        if fp2_date != "\\N":
+            temp_date = format_date(fp2_date)
+            temp_time = format_time(fp2_time)
+            self.fp2_date = temp_date
+            self.fp2_time = temp_time
+        else:
+            self.fp2_date = None
+            self.fp2_time = None
+
+        if fp3_date != "\\N":
+            temp_date = format_date(fp3_date)
+            temp_time = format_time(fp3_time)
+            self.fp3_date = temp_date
+            self.fp3_time = temp_time
+        else:
+            self.fp3_date = None
+            self.fp3_time = None
+        if quali_date != "\\N":
+            temp_date = format_date(quali_date)
+            temp_time = format_time(quali_time)
+            self.quali_date = temp_date
+            self.quali_time = temp_time
+        else:
+            self.quali_date = None
+            self.quali_time = None
+        if sprint_date != "\\N":
+            temp_date = format_date(sprint_date)
+            temp_time = format_time(sprint_time)
+            self.sprint_date = temp_date
+            self.sprint_time = temp_time
+        else:
+            self.sprint_date = None
+            self.sprint_time = None
+
+    def __str__(self):
+        first_line = f"{self.raceId} {self.year} {self.round} {self.name} {self.date} {self.time}"
+        second_line = f"{self.fp1_date} {self.fp1_time} {self.fp2_date} {self.fp2_time} {self.fp3_date} {self.fp3_time}"
+        third_line = f"{self.quali_date} {self.quali_time} {self.sprint_date} {self.sprint_time}"
+        return f"{first_line}\n{second_line}\n{third_line}"
