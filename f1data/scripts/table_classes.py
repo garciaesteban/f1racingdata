@@ -171,3 +171,41 @@ class RaceTable:
         second_line = f"{self.fp1_date} {self.fp1_time} {self.fp2_date} {self.fp2_time} {self.fp3_date} {self.fp3_time}"
         third_line = f"{self.quali_date} {self.quali_time} {self.sprint_date} {self.sprint_time}"
         return f"{first_line}\n{second_line}\n{third_line}"
+
+class QualifyingTable:
+    def __init__(
+        self,
+        qualifyId,
+        raceId,
+        driverId,
+        constructorId,
+        number,
+        position,
+        q1,
+        q2,
+        q3
+    ):
+        self.qualifyId = qualifyId
+        self.raceId = raceId
+        self.driverId = driverId
+        self.constructorId = constructorId
+        self.number = number
+        self.position = position
+
+        if q1 != "\\N":
+            self.q1 = q1
+        else:
+            self.q1 = None
+
+        if q2 != "\\N":
+            self.q2 = q2
+        else:
+            self.q2 = None
+
+        if q3 != "\\N":
+            self.q3 = q3
+        else:
+            self.q3 = None
+
+    def __str__(self):
+        return f"{self.number} {self.position} {self.q1} {self.q2} {self.q3}"
