@@ -209,3 +209,68 @@ class QualifyingTable:
 
     def __str__(self):
         return f"{self.number} {self.position} {self.q1} {self.q2} {self.q3}"
+
+class SprintResultTable:
+    def __init__(
+        self,
+        resultId,
+        raceId,
+        driverId,
+        constructorId,
+        number,
+        grid,
+        position,
+        positionText,
+        positionOrder,
+        points,
+        laps,
+        time,
+        milliseconds,
+        fastestLap,
+        fastestLapTime,
+        statusId
+    ):
+        self.resultId = resultId
+        self.raceId = raceId
+        self.driverId = driverId
+        self.constructorId = constructorId
+        self.number = number
+        self.grid = grid
+        self.positionText = positionText
+        self.positionOrder = positionOrder
+        self.points = points
+        self.laps = laps
+        self.statusId = statusId
+
+        if position != "\\N":
+            self.position = position
+        else:
+            self.position = None
+
+        if time != "\\N":
+            self.time = time
+        else:
+            self.time = None
+
+        if milliseconds != "\\N":
+            self.milliseconds = milliseconds
+        else:
+            self.milliseconds = None
+
+        if fastestLap != "\\N":
+            self.fastestLap = fastestLap
+        else:
+            self.fastestLap = None
+
+        if fastestLapTime != "\\N":
+            self.fastestLapTime = fastestLapTime
+        else:
+            self.fastestLapTime = None
+
+class StatusTable:
+    def __init__(self,statusId,status):
+        self.statusId = statusId
+        self.status = status
+
+    def __str__(self):
+        return f"{self.statusId} {self.status}"
