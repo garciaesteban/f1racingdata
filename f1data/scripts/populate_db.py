@@ -12,6 +12,7 @@ def run():
     races = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/races.csv")
     qualifying = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/qualifying.csv")
     sprint_results = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/sprint_results.csv")
+    status = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/status.csv")
     drivers = csv.DictReader(drivers)
     constructors = csv.DictReader(constructors)
     circuits = csv.DictReader(circuits)
@@ -19,6 +20,7 @@ def run():
     races = csv.DictReader(races)
     qualifying = csv.DictReader(qualifying)
     sprint_results = csv.DictReader(sprint_results)
+    status = csv.DictReader(status)
     drivers_dict = {}
     constructors_dict = {}
     circuits_dict = {}
@@ -26,6 +28,7 @@ def run():
     races_dict = {}
     qualifying_dict = {}
     sprint_results_dict = {}
+    status_dict = {}
 
     for driver in drivers:
         temp_driver = DriverTable(**driver)
@@ -54,3 +57,7 @@ def run():
     for sprint in sprint_results:
         temp_sprint = SprintResultTable(**sprint)
         sprint_results_dict[temp_sprint.resultId] = temp_sprint
+
+    for stat in status:
+        temp_stat = StatusTable(**stat)
+        status_dict[temp_stat] = temp_stat
