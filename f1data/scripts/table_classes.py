@@ -1,9 +1,11 @@
 from datetime import datetime
 from django.utils.timezone import make_aware, utc
 
+
 def format_date(date):
     temp_date = datetime.strptime(date, "%Y-%m-%d")
     return temp_date.date()
+
 
 def format_time(time):
     if time != "\\N":
@@ -12,6 +14,7 @@ def format_time(time):
     else:
         temp_time = None
     return temp_time
+
 
 class DriverTable:
     def __init__(
@@ -107,7 +110,7 @@ class RaceTable:
         quali_date,
         quali_time,
         sprint_date,
-        sprint_time
+        sprint_time,
     ):
         self.raceId = raceId
         self.year = year
@@ -169,21 +172,15 @@ class RaceTable:
     def __str__(self):
         first_line = f"{self.raceId} {self.year} {self.round} {self.name} {self.date} {self.time}"
         second_line = f"{self.fp1_date} {self.fp1_time} {self.fp2_date} {self.fp2_time} {self.fp3_date} {self.fp3_time}"
-        third_line = f"{self.quali_date} {self.quali_time} {self.sprint_date} {self.sprint_time}"
+        third_line = (
+            f"{self.quali_date} {self.quali_time} {self.sprint_date} {self.sprint_time}"
+        )
         return f"{first_line}\n{second_line}\n{third_line}"
+
 
 class QualifyingTable:
     def __init__(
-        self,
-        qualifyId,
-        raceId,
-        driverId,
-        constructorId,
-        number,
-        position,
-        q1,
-        q2,
-        q3
+        self, qualifyId, raceId, driverId, constructorId, number, position, q1, q2, q3
     ):
         self.qualifyId = qualifyId
         self.raceId = raceId
@@ -210,6 +207,7 @@ class QualifyingTable:
     def __str__(self):
         return f"{self.number} {self.position} {self.q1} {self.q2} {self.q3}"
 
+
 class SprintResultTable:
     def __init__(
         self,
@@ -228,7 +226,7 @@ class SprintResultTable:
         milliseconds,
         fastestLap,
         fastestLapTime,
-        statusId
+        statusId,
     ):
         self.resultId = resultId
         self.raceId = raceId
@@ -267,10 +265,87 @@ class SprintResultTable:
         else:
             self.fastestLapTime = None
 
+
 class StatusTable:
-    def __init__(self,statusId,status):
+    def __init__(self, statusId, status):
         self.statusId = statusId
         self.status = status
 
     def __str__(self):
         return f"{self.statusId} {self.status}"
+
+
+class ResultTable:
+    def __init__(
+        self,
+        resultId,
+        raceId,
+        driverId,
+        constructorId,
+        number,
+        grid,
+        position,
+        positionText,
+        positionOrder,
+        points,
+        laps,
+        time,
+        milliseconds,
+        fastestLap,
+        rank,
+        fastestLapTime,
+        fastestLapSpeed,
+        statusId,
+    ):
+        self.resultId = resultId
+        self.raceId = raceId
+        self.driverId = driverId
+        self.constructorId = constructorId
+        self.number = number
+        self.grid = grid
+        self.positionText = positionText
+        self.positionOrder = positionOrder
+        self.points = points
+        self.laps = laps
+        self.statusId = statusId
+
+        if position != "\\N":
+            self.position = position
+        else:
+            self.position = None
+
+        if time != "\\N":
+            self.time = time
+        else:
+            self.time = None
+
+        if milliseconds != "\\N":
+            self.milliseconds = milliseconds
+        else:
+            self.milliseconds = None
+
+        if fastestLap != "\\N":
+            self.fastestLap = fastestLap
+        else:
+            self.fastestLap = None
+
+        if rank != "\\N":
+            self.rank = rank
+        else:
+            self.rank = None
+
+        if fastestLapTime != "\\N":
+            self.fastestLapTime = fastestLapTime
+        else:
+            self.fastestLapTime = None
+
+        if fastestLapSpeed != "\\N":
+            self.fastestLapSpeed = fastestLapSpeed
+        else:
+            self.fastestLapSpeed = None
+
+    def __str__(self):
+        first_line = f"{self.number} {self.grid} {self.position} {self.positionText} "
+        second_line = f"{self.positionOrder} {self.points} {self.laps} {self.time} "
+        third_line = f"{self.milliseconds} {self.fastestLap} {self.rank} {self.fastestLapTime} {self.fastestLapSpeed}"
+        return first_line + second_line + third_line
