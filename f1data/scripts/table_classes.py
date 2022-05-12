@@ -405,7 +405,7 @@ class DriverStandingTable:
         points,
         position,
         positionText,
-        wins
+        wins,
     ):
         self.driverStandingsId = driverStandingsId
         self.raceId = raceId
@@ -417,5 +417,29 @@ class DriverStandingTable:
 
     def __str__(self):
         first_line = f"{self.driverStandingsId} {self.raceId} {self.driverId} "
+        second_line = f"{self.points} {self.position} {self.positionText} {self.wins}"
+        return first_line + second_line
+
+class ConstructorStandingTable:
+    def __init__(
+        self,
+        constructorStandingsId,
+        raceId,
+        constructorId,
+        points,
+        position,
+        positionText,
+        wins
+    ):
+        self.constructorStandingsId = constructorStandingsId
+        self.raceId = raceId
+        self.constructorId = constructorId
+        self.points = points
+        self.position = position
+        self.positionText = positionText
+        self.wins = wins
+
+    def __str__(self):
+        first_line = f"{self.constructorStandingsId} {self.raceId} {self.constructorId} "
         second_line = f"{self.points} {self.position} {self.positionText} {self.wins}"
         return first_line + second_line
