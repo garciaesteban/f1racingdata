@@ -192,17 +192,17 @@ class QualifyingTable:
         if q1 != "\\N":
             self.q1 = q1
         else:
-            self.q1 = None
+            self.q1 = ""
 
         if q2 != "\\N":
             self.q2 = q2
         else:
-            self.q2 = None
+            self.q2 = ""
 
         if q3 != "\\N":
             self.q3 = q3
         else:
-            self.q3 = None
+            self.q3 = ""
 
     def __str__(self):
         return f"{self.number} {self.position} {self.q1} {self.q2} {self.q3}"
@@ -263,7 +263,7 @@ class SprintResultTable:
         if fastestLapTime != "\\N":
             self.fastestLapTime = fastestLapTime
         else:
-            self.fastestLapTime = None
+            self.fastestLapTime = ""
 
 
 class StatusTable:
@@ -337,12 +337,12 @@ class ResultTable:
         if fastestLapTime != "\\N":
             self.fastestLapTime = fastestLapTime
         else:
-            self.fastestLapTime = None
+            self.fastestLapTime = ""
 
         if fastestLapSpeed != "\\N":
             self.fastestLapSpeed = fastestLapSpeed
         else:
-            self.fastestLapSpeed = None
+            self.fastestLapSpeed = ""
 
     def __str__(self):
         first_line = f"{self.number} {self.grid} {self.position} {self.positionText} "
