@@ -443,3 +443,27 @@ class ConstructorStandingTable:
         first_line = f"{self.constructorStandingsId} {self.raceId} {self.constructorId} "
         second_line = f"{self.points} {self.position} {self.positionText} {self.wins}"
         return first_line + second_line
+
+class ConstructorResultTable:
+    def __init__(
+        self,
+        constructorResultsId,
+        raceId,
+        constructorId,
+        points,
+        status
+    ):
+        self.constructorResultsId = constructorResultsId
+        self.raceId = raceId
+        self.constructorId = constructorId
+        self.points = points
+
+        if status != "\\N":
+            self.status = status
+        else:
+            self.status = ""
+
+    def __str__(self):
+        first_line = f"{self.constructorResultsId} {self.raceId} {self.constructorId} "
+        second_line = f"{self.points}"
+        return first_line + second_line

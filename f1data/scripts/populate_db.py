@@ -18,6 +18,7 @@ def run():
     lap_times = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/lap_times.csv")
     driver_standings = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/driver_standings.csv")
     constructor_standings = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/constructor_standings.csv")
+    constructor_results = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/constructor_results.csv")
     drivers = csv.DictReader(drivers)
     constructors = csv.DictReader(constructors)
     circuits = csv.DictReader(circuits)
@@ -31,6 +32,7 @@ def run():
     lap_times = csv.DictReader(lap_times)
     driver_standings = csv.DictReader(driver_standings)
     constructor_standings = csv.DictReader(constructor_standings)
+    constructor_results = csv.DictReader(constructor_results)
 
     drivers_dict = {}
     constructors_dict = {}
@@ -45,6 +47,7 @@ def run():
     lap_times_dict = {}
     driver_standings_dict = {}
     constructor_standings_dict = {}
+    constructor_results_dict = {}
 
     for driver in drivers:
         temp_driver = DriverTable(**driver)
@@ -97,3 +100,7 @@ def run():
     for constructor_standing in constructor_standings:
         temp_constructor_standing = ConstructorStandingTable(**constructor_standing)
         constructor_standings_dict[temp_constructor_standing.constructorStandingsId] = temp_constructor_standing
+
+    for constructor_result in constructor_results:
+        temp_constructor_result = ConstructorResultTable(**constructor_result)
+        constructor_results_dict[temp_constructor_result.constructorResultsId] = temp_constructor_result
