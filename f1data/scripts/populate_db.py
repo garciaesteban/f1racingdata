@@ -15,6 +15,7 @@ def run():
     status = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/status.csv")
     results = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/results.csv")
     pit_stops = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/pit_stops.csv")
+    lap_times = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/lap_times.csv")
     drivers = csv.DictReader(drivers)
     constructors = csv.DictReader(constructors)
     circuits = csv.DictReader(circuits)
@@ -25,6 +26,7 @@ def run():
     status = csv.DictReader(status)
     results = csv.DictReader(results)
     pit_stops = csv.DictReader(pit_stops)
+    lap_times = csv.DictReader(lap_times)
 
     drivers_dict = {}
     constructors_dict = {}
@@ -36,6 +38,7 @@ def run():
     status_dict = {}
     results_dict = {}
     pit_stops_dict = {}
+    lap_times_dict = {}
 
     for driver in drivers:
         temp_driver = DriverTable(**driver)
@@ -76,3 +79,7 @@ def run():
     for pit_stop in pit_stops:
         temp_pit_stop = PitStopTable(**pit_stop)
         results_dict[temp_pit_stop.raceId] = temp_pit_stop
+
+    for lap_time in lap_times:
+        temp_lap_time = LapTimeTable(**lap_time)
+        lap_times_dict[temp_lap_time.raceId] = temp_lap_time
