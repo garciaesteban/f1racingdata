@@ -395,3 +395,27 @@ class LapTimeTable:
         first_line = f"{self.raceId} {self.driverId} {self.lap} {self.position} "
         second_line = f"{self.time} {self.milliseconds}"
         return first_line + second_line
+
+class DriverStandingTable:
+    def __init__(
+        self,
+        driverStandingsId,
+        raceId,
+        driverId,
+        points,
+        position,
+        positionText,
+        wins
+    ):
+        self.driverStandingsId = driverStandingsId
+        self.raceId = raceId
+        self.driverId = driverId
+        self.points = points
+        self.position = position
+        self.positionText = positionText
+        self.wins = wins
+
+    def __str__(self):
+        first_line = f"{self.driverStandingsId} {self.raceId} {self.driverId} "
+        second_line = f"{self.points} {self.position} {self.positionText} {self.wins}"
+        return first_line + second_line
