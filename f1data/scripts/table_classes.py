@@ -472,7 +472,7 @@ class PitStopTable:
         second_line = f"{self.time} {self.duration} {self.milliseconds}"
         return first_line + second_line
 
-    def pit_stops_dict(self):
+    def pit_stops_model_dict(self):
         return {
             "stop": self.stop,
             "lap": self.lap,
@@ -496,7 +496,7 @@ class LapTimeTable:
         second_line = f"{self.time} {self.milliseconds}"
         return first_line + second_line
 
-    def lap_time_dict(self):
+    def lap_time_model_dict(self):
         return {
             "lap": self.lap,
             "position": self.position,
@@ -520,6 +520,15 @@ class DriverStandingTable:
         first_line = f"{self.driverStandingsId} {self.raceId} {self.driverId} "
         second_line = f"{self.points} {self.position} {self.positionText} {self.wins}"
         return first_line + second_line
+
+    def driver_standing_model_dict(self):
+        return {
+            "driver_standing_id": self.driverStandingsId,
+            "points": self.points,
+            "position": self.position,
+            "position_text": self.positionText,
+            "wins": self.win,
+        }
 
 
 class ConstructorStandingTable:
