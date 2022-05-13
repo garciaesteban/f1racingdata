@@ -67,6 +67,10 @@ def run():
         temp_circuit = CircuitTable(**circuit)
         circuits_dict[temp_circuit.circuitId] = temp_circuit
 
+    for stat in status:
+        temp_stat = StatusTable(**stat)
+        status_dict[temp_stat] = temp_stat
+
     for season in seasons:
         temp_season = SeasonTable(**season)
         seasons_dict[temp_season.year] = temp_season
@@ -82,10 +86,6 @@ def run():
     for sprint in sprint_results:
         temp_sprint = SprintResultTable(**sprint)
         sprint_results_dict[temp_sprint.resultId] = temp_sprint
-
-    for stat in status:
-        temp_stat = StatusTable(**stat)
-        status_dict[temp_stat] = temp_stat
 
     for result in results:
         temp_result = ResultTable(**result)
