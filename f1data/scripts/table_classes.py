@@ -496,6 +496,13 @@ class LapTimeTable:
         second_line = f"{self.time} {self.milliseconds}"
         return first_line + second_line
 
+    def lap_time_dict(self):
+        return {
+            "lap": self.lap,
+            "position": self.position,
+            "time": self.time,
+            "milliseconds": self.milliseconds,
+        }
 
 class DriverStandingTable:
     def __init__(
