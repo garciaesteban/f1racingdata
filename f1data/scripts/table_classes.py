@@ -557,6 +557,15 @@ class ConstructorStandingTable:
         second_line = f"{self.points} {self.position} {self.positionText} {self.wins}"
         return first_line + second_line
 
+    def constructor_standing_model_dict(self):
+        return {
+            "constructor_standings_id": self.constructorStandingsId,
+            "points": self.points,
+            "position": self.position,
+            "position_text": self.positionText,
+            "wins": self.wins,
+        }
+
 
 class ConstructorResultTable:
     def __init__(self, constructorResultsId, raceId, constructorId, points, status):
