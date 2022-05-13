@@ -124,6 +124,9 @@ class SeasonTable:
     def __str__(self):
         return f"{self.year} {self.url}"
 
+    def season_model_dict(self):
+        return {"year": self.year, "url": self.url}
+
 
 class RaceTable:
     def __init__(
