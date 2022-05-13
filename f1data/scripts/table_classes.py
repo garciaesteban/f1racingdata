@@ -583,3 +583,10 @@ class ConstructorResultTable:
         first_line = f"{self.constructorResultsId} {self.raceId} {self.constructorId} "
         second_line = f"{self.points}"
         return first_line + second_line
+
+    def constructor_result_model_dict(self):
+        return {
+            "constructor_result": self.constructorResultsId,
+            "points": self.points,
+            "status": self.status,
+        }
