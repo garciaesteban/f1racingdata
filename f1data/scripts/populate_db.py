@@ -2,6 +2,7 @@ import csv
 import os
 from django.utils.timezone import *
 from .table_classes import *
+from f1data.models import *
 
 
 def run():
@@ -58,6 +59,8 @@ def run():
     for driver in drivers:
         temp_driver = DriverTable(**driver)
         drivers_dict[temp_driver.driverId] = temp_driver
+        create_driver = Driver(**temp_driver.driver_model_dict())
+        create_driver.save()
 
     for constructor in constructors:
         temp_constructor = ConstructorTable(**constructor)
