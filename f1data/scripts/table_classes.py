@@ -50,6 +50,19 @@ class DriverTable:
     def __str__(self):
         return f"{self.driverId} {self.driverRef} {self.number} {self.code} {self.forename} {self.surname} {self.dob} {self.nationality}"
 
+    def driver_model_dict(self):
+        return {
+            "driver_id": self.driverId,
+            "driver_ref": self.driverRef,
+            "number": self.number,
+            "code": self.code,
+            "forename": self.forename,
+            "surname": self.surname,
+            "dob": self.dob,
+            "nationality": self.nationality,
+            "url": self.url,
+        }
+
 
 class ConstructorTable:
     def __init__(self, constructorId, constructorRef, name, nationality, url):
@@ -62,6 +75,14 @@ class ConstructorTable:
     def __str__(self):
         return f"{self.constructorId} {self.constructorRef} {self.name} {self.nationality} {self.url}"
 
+    def constructor_model_dict(self):
+        return {
+            "constructor_id": self.constructorId,
+            "constructor_ref": self.constructorRef,
+            "name": self.name,
+            "nationality": self.nationality,
+            "url": self.url
+        }
 
 class CircuitTable:
     def __init__(
@@ -350,17 +371,9 @@ class ResultTable:
         third_line = f"{self.milliseconds} {self.fastestLap} {self.rank} {self.fastestLapTime} {self.fastestLapSpeed}"
         return first_line + second_line + third_line
 
+
 class PitStopTable:
-    def __init__(
-        self,
-        raceId,
-        driverId,
-        stop,
-        lap,
-        time,
-        duration,
-        milliseconds,
-    ):
+    def __init__(self, raceId, driverId, stop, lap, time, duration, milliseconds):
         self.raceId = raceId
         self.driverId = driverId
         self.stop = stop
@@ -374,16 +387,9 @@ class PitStopTable:
         second_line = f"{self.time} {self.duration} {self.milliseconds}"
         return first_line + second_line
 
+
 class LapTimeTable:
-    def __init__(
-        self,
-        raceId,
-        driverId,
-        lap,
-        position,
-        time,
-        milliseconds,
-    ):
+    def __init__(self, raceId, driverId, lap, position, time, milliseconds):
         self.raceId = raceId
         self.driverId = driverId
         self.lap = lap
@@ -396,16 +402,10 @@ class LapTimeTable:
         second_line = f"{self.time} {self.milliseconds}"
         return first_line + second_line
 
+
 class DriverStandingTable:
     def __init__(
-        self,
-        driverStandingsId,
-        raceId,
-        driverId,
-        points,
-        position,
-        positionText,
-        wins,
+        self, driverStandingsId, raceId, driverId, points, position, positionText, wins
     ):
         self.driverStandingsId = driverStandingsId
         self.raceId = raceId
@@ -420,6 +420,7 @@ class DriverStandingTable:
         second_line = f"{self.points} {self.position} {self.positionText} {self.wins}"
         return first_line + second_line
 
+
 class ConstructorStandingTable:
     def __init__(
         self,
@@ -429,7 +430,7 @@ class ConstructorStandingTable:
         points,
         position,
         positionText,
-        wins
+        wins,
     ):
         self.constructorStandingsId = constructorStandingsId
         self.raceId = raceId
@@ -440,19 +441,15 @@ class ConstructorStandingTable:
         self.wins = wins
 
     def __str__(self):
-        first_line = f"{self.constructorStandingsId} {self.raceId} {self.constructorId} "
+        first_line = (
+            f"{self.constructorStandingsId} {self.raceId} {self.constructorId} "
+        )
         second_line = f"{self.points} {self.position} {self.positionText} {self.wins}"
         return first_line + second_line
 
+
 class ConstructorResultTable:
-    def __init__(
-        self,
-        constructorResultsId,
-        raceId,
-        constructorId,
-        points,
-        status
-    ):
+    def __init__(self, constructorResultsId, raceId, constructorId, points, status):
         self.constructorResultsId = constructorResultsId
         self.raceId = raceId
         self.constructorId = constructorId

@@ -16,9 +16,15 @@ def run():
     results = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/results.csv")
     pit_stops = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/pit_stops.csv")
     lap_times = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/lap_times.csv")
-    driver_standings = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/driver_standings.csv")
-    constructor_standings = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/constructor_standings.csv")
-    constructor_results = open(f"{os.getcwd()}/f1data/scripts/f1db_csv/constructor_results.csv")
+    driver_standings = open(
+        f"{os.getcwd()}/f1data/scripts/f1db_csv/driver_standings.csv"
+    )
+    constructor_standings = open(
+        f"{os.getcwd()}/f1data/scripts/f1db_csv/constructor_standings.csv"
+    )
+    constructor_results = open(
+        f"{os.getcwd()}/f1data/scripts/f1db_csv/constructor_results.csv"
+    )
     drivers = csv.DictReader(drivers)
     constructors = csv.DictReader(constructors)
     circuits = csv.DictReader(circuits)
@@ -95,12 +101,18 @@ def run():
 
     for driver_standing in driver_standings:
         temp_driver_standing = DriverStandingTable(**driver_standing)
-        driver_standings_dict[temp_driver_standing.driverStandingsId] = temp_driver_standing
+        driver_standings_dict[
+            temp_driver_standing.driverStandingsId
+        ] = temp_driver_standing
 
     for constructor_standing in constructor_standings:
         temp_constructor_standing = ConstructorStandingTable(**constructor_standing)
-        constructor_standings_dict[temp_constructor_standing.constructorStandingsId] = temp_constructor_standing
+        constructor_standings_dict[
+            temp_constructor_standing.constructorStandingsId
+        ] = temp_constructor_standing
 
     for constructor_result in constructor_results:
         temp_constructor_result = ConstructorResultTable(**constructor_result)
-        constructor_results_dict[temp_constructor_result.constructorResultsId] = temp_constructor_result
+        constructor_results_dict[
+            temp_constructor_result.constructorResultsId
+        ] = temp_constructor_result
