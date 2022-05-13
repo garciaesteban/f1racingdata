@@ -334,6 +334,22 @@ class SprintResultTable:
         else:
             self.fastestLapTime = ""
 
+    def sprint_result_model_dict(self):
+        return {
+            "result_id": self.resultId,
+            "number": self.number,
+            "grid": self.grid,
+            "position": self.position,
+            "position_text": self.positionText,
+            "position_order": self.positionOrder,
+            "points": self.points,
+            "laps": self.laps,
+            "time": self.time,
+            "milliseconds": self.milliseconds,
+            "fastest_lap": self.fastestLap,
+            "fastest_lap_time": self.fastestLapTime
+        }
+
 
 class StatusTable:
     def __init__(self, statusId, status):

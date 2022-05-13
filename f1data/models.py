@@ -66,7 +66,7 @@ class Result(models.Model):
     constructor = models.ForeignKey('Constructor',on_delete=models.PROTECT)
 
 class SprintResult(models.Model):
-    sprint_result_id = models.IntegerField()
+    result_id = models.IntegerField()
     number = models.IntegerField()
     grid = models.IntegerField()
     position = models.IntegerField(null=True)
