@@ -233,7 +233,7 @@ class RaceTable:
             "quali_date": self.quali_date,
             "quali_time": self.quali_time,
             "sprint_date": self.sprint_date,
-            "sprint_time": self.sprint_time
+            "sprint_time": self.sprint_time,
         }
 
 
@@ -273,7 +273,7 @@ class QualifyingTable:
             "position": self.position,
             "q1": self.q1,
             "q2": self.q2,
-            "q3": self.q3
+            "q3": self.q3,
         }
 
 
@@ -347,7 +347,7 @@ class SprintResultTable:
             "time": self.time,
             "milliseconds": self.milliseconds,
             "fastest_lap": self.fastestLap,
-            "fastest_lap_time": self.fastestLapTime
+            "fastest_lap_time": self.fastestLapTime,
         }
 
 
@@ -358,6 +358,9 @@ class StatusTable:
 
     def __str__(self):
         return f"{self.statusId} {self.status}"
+
+    def status_model_dict(self):
+        return {"status_id": self.statusId, "status": self.status}
 
 
 class ResultTable:
