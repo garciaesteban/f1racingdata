@@ -266,9 +266,14 @@ class QualifyingTable:
     def __str__(self):
         return f"{self.number} {self.position} {self.q1} {self.q2} {self.q3}"
 
-    def qualifying_module_dict(self):
+    def qualifying_model_dict(self):
         return {
-
+            "qualify_id": self.qualifyId,
+            "number": self.number,
+            "position": self.position,
+            "q1": self.q1,
+            "q2": self.q2,
+            "q3": self.q3
         }
 
 
