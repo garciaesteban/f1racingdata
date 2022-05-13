@@ -215,6 +215,27 @@ class RaceTable:
         )
         return f"{first_line}\n{second_line}\n{third_line}"
 
+    def race_model_dict(self):
+        return {
+            "race_id": self.raceId,
+            "year": self.year,
+            "round": self.round,
+            "name": self.name,
+            "date": self.date,
+            "time": self.time,
+            "url": self.url,
+            "fp1_date": self.fp1_date,
+            "fp1_time": self.fp1_time,
+            "fp2_date": self.fp2_date,
+            "fp2_time": self.fp2_time,
+            "fp3_date": self.fp3_date,
+            "fp3_time": self.fp3_time,
+            "quali_date": self.quali_date,
+            "quali_time": self.quali_time,
+            "sprint_date": self.sprint_date,
+            "sprint_time": self.sprint_time
+        }
+
 
 class QualifyingTable:
     def __init__(
@@ -244,6 +265,11 @@ class QualifyingTable:
 
     def __str__(self):
         return f"{self.number} {self.position} {self.q1} {self.q2} {self.q3}"
+
+    def qualifying_module_dict(self):
+        return {
+
+        }
 
 
 class SprintResultTable:
