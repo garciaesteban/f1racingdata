@@ -472,6 +472,15 @@ class PitStopTable:
         second_line = f"{self.time} {self.duration} {self.milliseconds}"
         return first_line + second_line
 
+    def pit_stops_dict(self):
+        return {
+            "stop": self.stop,
+            "lap": self.lap,
+            "time": self.time,
+            "duration": self.duration,
+            "milliseconds": self.milliseconds,
+        }
+
 
 class LapTimeTable:
     def __init__(self, raceId, driverId, lap, position, time, milliseconds):
