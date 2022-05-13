@@ -81,8 +81,9 @@ class ConstructorTable:
             "constructor_ref": self.constructorRef,
             "name": self.name,
             "nationality": self.nationality,
-            "url": self.url
+            "url": self.url,
         }
+
 
 class CircuitTable:
     def __init__(
@@ -100,6 +101,19 @@ class CircuitTable:
 
     def __str__(self):
         return f"{self.circuitId} {self.circuitRef} {self.name} {self.location}"
+
+    def circuit_model_dict(self):
+        return {
+            "circuit_id": self.circuitId,
+            "circuit_ref": self.circuitRef,
+            "name": self.name,
+            "location": self.location,
+            "country": self.country,
+            "lat": self.lat,
+            "lng": self.lng,
+            "alt": self.alt,
+            "url": self.url,
+        }
 
 
 class SeasonTable:
