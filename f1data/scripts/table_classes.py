@@ -438,6 +438,24 @@ class ResultTable:
         third_line = f"{self.milliseconds} {self.fastestLap} {self.rank} {self.fastestLapTime} {self.fastestLapSpeed}"
         return first_line + second_line + third_line
 
+    def result_model_dict(self):
+        return {
+            "result_id": self.resultId,
+            "number": self.number,
+            "grid": self.grid,
+            "position": self.position,
+            "position_text": self.positionText,
+            "position_order": self.positionOrder,
+            "points": self.points,
+            "laps": self.laps,
+            "time": self.time,
+            "milliseconds": self.milliseconds,
+            "fastest_lap": self.fastestLap,
+            "rank": self.rank,
+            "fastest_lap_time": self.fastestLapTime,
+            "fastest_lap_speed": self.fastestLapSpeed,
+        }
+
 
 class PitStopTable:
     def __init__(self, raceId, driverId, stop, lap, time, duration, milliseconds):
