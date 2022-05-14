@@ -60,11 +60,15 @@ def run():
         temp_driver = DriverTable(**driver)
         drivers_dict[temp_driver.driverId] = temp_driver
         create_driver = Driver(**temp_driver.driver_model_dict())
-        create_driver.save()
+        if not Driver.objects.filter(driver_id=create_driver.driver_id).exists():
+            create_driver.save()
 
     for constructor in constructors:
         temp_constructor = ConstructorTable(**constructor)
         constructors_dict[temp_constructor.constructorId] = temp_constructor
+        create_constructor = Constructor(**temp_constructor.constructor_model_dict())
+        if not Constructor.objects.filter(constructor_id=create_constructor.constructor_id).exist():
+            create_constructor.exists()
 
     for circuit in circuits:
         temp_circuit = CircuitTable(**circuit)
