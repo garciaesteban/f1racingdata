@@ -99,6 +99,11 @@ class CircuitTable:
         self.alt = alt
         self.url = url
 
+        if self.alt != "\\N":
+            self.alt = alt
+        else:
+            self.alt = None
+            
     def __str__(self):
         return f"{self.circuitId} {self.circuitRef} {self.name} {self.location}"
 
