@@ -73,6 +73,9 @@ def run():
     for circuit in circuits:
         temp_circuit = CircuitTable(**circuit)
         circuits_dict[temp_circuit.circuitId] = temp_circuit
+        create_circuit = Circuit(**temp_circuit.circuit_model_dict())
+        if not Circuit.objects.filter(circuit_id=create_circuit.circuit_id).exists():
+            create_circuit.save()
 
     for stat in status:
         temp_stat = StatusTable(**stat)
