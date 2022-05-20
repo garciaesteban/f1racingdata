@@ -67,8 +67,8 @@ def run():
         temp_constructor = ConstructorTable(**constructor)
         constructors_dict[temp_constructor.constructorId] = temp_constructor
         create_constructor = Constructor(**temp_constructor.constructor_model_dict())
-        if not Constructor.objects.filter(constructor_id=create_constructor.constructor_id).exist():
-            create_constructor.exists()
+        if not Constructor.objects.filter(constructor_id=create_constructor.constructor_id).exists():
+            create_constructor.save()
 
     for circuit in circuits:
         temp_circuit = CircuitTable(**circuit)

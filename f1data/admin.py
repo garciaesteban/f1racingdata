@@ -3,3 +3,4 @@ from f1data.models import *
 
 # Register your models here.
 admin.site.register(Driver)
+admin.site.register(Constructor)
