@@ -87,6 +87,9 @@ def run():
     for season in seasons:
         temp_season = SeasonTable(**season)
         seasons_dict[temp_season.year] = temp_season
+        create_season = Season(**temp_season.season_model_dict())
+        if not Season.objects.filter(year=create_season.year).exists():
+            create_season.save()
 
     for race in races:
         temp_race = RaceTable(**race)
