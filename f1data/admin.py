@@ -5,3 +5,4 @@ from f1data.models import *
 admin.site.register(Driver)
 admin.site.register(Constructor)
 admin.site.register(Circuit)
+admin.site.register(Status)
