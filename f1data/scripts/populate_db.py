@@ -80,6 +80,9 @@ def run():
     for stat in status:
         temp_stat = StatusTable(**stat)
         status_dict[temp_stat] = temp_stat
+        create_stat = Status(**temp_stat.status_model_dict())
+        if not Status.objects.filter(status_id=create_stat.status_id).exists():
+            create_stat.save()
 
     for season in seasons:
         temp_season = SeasonTable(**season)
