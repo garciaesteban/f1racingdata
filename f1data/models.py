@@ -109,7 +109,7 @@ class Circuit(models.Model):
     country = models.CharField(max_length=255)
     lat = models.FloatField()
     lng = models.FloatField()
-    alt = models.IntegerField()
+    alt = models.IntegerField(null=True)
     url = models.URLField(max_length=255)
 
 class Status(models.Model):
