@@ -94,6 +94,9 @@ def run():
     for race in races:
         temp_race = RaceTable(**race)
         races_dict[temp_race.raceId] = temp_race
+        create_race = Race(**temp_race.race_model_dict())
+        if not Race.objects.filter(race_id=create_race.race_id).exists():
+            create_race.save()
 
     for quali in qualifying:
         temp_qualifying = QualifyingTable(**quali)

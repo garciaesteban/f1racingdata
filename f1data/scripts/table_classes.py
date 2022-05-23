@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.utils.timezone import make_aware, utc
+from f1data.models import *
 
 
 def format_date(date):
@@ -103,7 +104,7 @@ class CircuitTable:
             self.alt = alt
         else:
             self.alt = None
-            
+
     def __str__(self):
         return f"{self.circuitId} {self.circuitRef} {self.name} {self.location}"
 
@@ -223,6 +224,7 @@ class RaceTable:
     def race_model_dict(self):
         return {
             "race_id": self.raceId,
+            "circuit": Circuit.objects.get(circuit_id=self.circuitId),
             "year": self.year,
             "round": self.round,
             "name": self.name,
