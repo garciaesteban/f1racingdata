@@ -12,6 +12,9 @@ class Season(models.Model):
     constructors = models.ManyToManyField('Constructor')
     circuits = models.ManyToManyField('Circuit')
 
+    def __str__(self):
+        return f"{self.year}"
+
 class Race(models.Model):
     race_id = models.IntegerField()
     year = models.IntegerField()
@@ -34,6 +37,9 @@ class Race(models.Model):
     constructors = models.ManyToManyField('Constructor')
     circuit = models.ForeignKey('Circuit',on_delete=models.PROTECT)
 
+    def __str__(self):
+        return f"{self.year} {self.round} {self.circuit}"
+
 class Qualifying(models.Model):
     qualify_id = models.IntegerField()
     number = models.IntegerField()
@@ -44,6 +50,9 @@ class Qualifying(models.Model):
     driver = models.ForeignKey('Driver',on_delete=models.PROTECT)
     race = models.ForeignKey('Race',on_delete=models.PROTECT)
     constructor = models.ForeignKey('Constructor',on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.position} {self.driver} {self.race}"
 
 class Result(models.Model):
     result_id = models.IntegerField()
@@ -94,12 +103,18 @@ class Driver(models.Model):
     nationality = models.CharField(max_length=255)
     url = models.URLField(max_length=255)
 
+    def __str__(self):
+        return f"{self.surname} {self.forename} {self.code} {self.number}"
+
 class Constructor(models.Model):
     constructor_id = models.IntegerField()
     constructor_ref = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     nationality = models.CharField(max_length=255)
     url = models.URLField(max_length=255)
+
+    def __str__(self):
+        return f"{self.constructor_id} {self.name}"
 
 class Circuit(models.Model):
     circuit_id = models.IntegerField()
@@ -112,9 +127,15 @@ class Circuit(models.Model):
     alt = models.IntegerField(null=True)
     url = models.URLField(max_length=255)
 
+    def __str__(self):
+        return f"{self.name}"
+
 class Status(models.Model):
     status_id = models.IntegerField()
     status = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.status_id} {self.status}"
 
 class PitStop(models.Model):
     stop = models.IntegerField()
