@@ -271,7 +271,7 @@ class QualifyingTable:
             self.q3 = ""
 
     def __str__(self):
-        return f"{self.number} {self.position} {self.q1} {self.q2} {self.q3}"
+        return f"{self.number} {self.position} {self.q1} {self.q2} {self.q3} {self.constructorId}"
 
     def qualifying_model_dict(self):
         return {
@@ -281,6 +281,9 @@ class QualifyingTable:
             "q1": self.q1,
             "q2": self.q2,
             "q3": self.q3,
+            "driver": Driver.objects.get(driver_id=self.driverId),
+            "race": Race.objects.get(race_id=self.raceId),
+            "constructor": Constructor.objects.get(constructor_id=self.constructorId),
         }
 
 
@@ -324,7 +327,7 @@ class SprintResultTable:
         if time != "\\N":
             self.time = time
         else:
-            self.time = None
+            self.time = ""
 
         if milliseconds != "\\N":
             self.milliseconds = milliseconds
@@ -355,6 +358,10 @@ class SprintResultTable:
             "milliseconds": self.milliseconds,
             "fastest_lap": self.fastestLap,
             "fastest_lap_time": self.fastestLapTime,
+            "status": Status.objects.get(status_id=self.statusId),
+            "driver": Driver.objects.get(driver_id=self.driverId),
+            "race": Race.objects.get(race_id=self.raceId),
+            "constructor": Constructor.objects.get(constructor_id=self.constructorId),
         }
 
 
@@ -404,6 +411,11 @@ class ResultTable:
         self.laps = laps
         self.statusId = statusId
 
+        if number != "\\N":
+            self.number = number
+        else:
+            self.number = None
+
         if position != "\\N":
             self.position = position
         else:
@@ -412,7 +424,7 @@ class ResultTable:
         if time != "\\N":
             self.time = time
         else:
-            self.time = None
+            self.time = ""
 
         if milliseconds != "\\N":
             self.milliseconds = milliseconds
@@ -461,6 +473,10 @@ class ResultTable:
             "rank": self.rank,
             "fastest_lap_time": self.fastestLapTime,
             "fastest_lap_speed": self.fastestLapSpeed,
+            "status": Status.objects.get(status_id=self.statusId),
+            "driver": Driver.objects.get(driver_id=self.driverId),
+            "race": Race.objects.get(race_id=self.raceId),
+            "constructor": Constructor.objects.get(constructor_id=self.constructorId),
         }
 
 
@@ -486,6 +502,8 @@ class PitStopTable:
             "time": self.time,
             "duration": self.duration,
             "milliseconds": self.milliseconds,
+            "race": Race.objects.get(race_id=self.raceId),
+            "driver": Driver.objects.get(driver_id=self.driverId),
         }
 
 
@@ -509,7 +527,10 @@ class LapTimeTable:
             "position": self.position,
             "time": self.time,
             "milliseconds": self.milliseconds,
+            "race": Race.objects.get(race_id=self.raceId),
+            "driver": Driver.objects.get(driver_id=self.driverId),
         }
+
 
 class DriverStandingTable:
     def __init__(
@@ -534,7 +555,9 @@ class DriverStandingTable:
             "points": self.points,
             "position": self.position,
             "position_text": self.positionText,
-            "wins": self.win,
+            "wins": self.wins,
+            "race": Race.objects.get(race_id=self.raceId),
+            "driver": Driver.objects.get(driver_id=self.driverId),
         }
 
 
@@ -571,6 +594,8 @@ class ConstructorStandingTable:
             "position": self.position,
             "position_text": self.positionText,
             "wins": self.wins,
+            "race": Race.objects.get(race_id=self.raceId),
+            "constructor": Constructor.objects.get(constructor_id=self.constructorId),
         }
 
 
@@ -593,7 +618,9 @@ class ConstructorResultTable:
 
     def constructor_result_model_dict(self):
         return {
-            "constructor_result": self.constructorResultsId,
+            "constructor_result_id": self.constructorResultsId,
             "points": self.points,
             "status": self.status,
+            "race": Race.objects.get(race_id=self.raceId),
+            "constructor": Constructor.objects.get(constructor_id=self.constructorId),
         }

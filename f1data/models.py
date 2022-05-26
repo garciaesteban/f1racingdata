@@ -52,18 +52,18 @@ class Qualifying(models.Model):
     constructor = models.ForeignKey('Constructor',on_delete=models.PROTECT)
 
     def __str__(self):
-        return f"{self.position} {self.driver} {self.race}"
+        return f"{self.position} {self.driver} {self.race} {self.constructor}"
 
 class Result(models.Model):
     result_id = models.IntegerField()
-    number = models.IntegerField()
+    number = models.IntegerField(null=True)
     grid = models.IntegerField()
     position = models.IntegerField(null=True)
     position_text = models.CharField(max_length=255)
     position_order = models.IntegerField()
     points = models.FloatField()
     laps = models.IntegerField()
-    time = models.TimeField(null=True)
+    time = models.CharField(max_length=255,default="")
     milliseconds = models.IntegerField(null=True)
     fastest_lap = models.IntegerField(null=True)
     rank = models.IntegerField(null=True)
@@ -74,6 +74,9 @@ class Result(models.Model):
     race = models.ForeignKey('Race',on_delete=models.PROTECT)
     constructor = models.ForeignKey('Constructor',on_delete=models.PROTECT)
 
+    def __str__(self):
+        return f"{self.driver} {self.race} {self.constructor}"
+
 class SprintResult(models.Model):
     result_id = models.IntegerField()
     number = models.IntegerField()
@@ -83,7 +86,7 @@ class SprintResult(models.Model):
     position_order = models.IntegerField()
     points = models.FloatField()
     laps = models.IntegerField()
-    time = models.TimeField(null=True)
+    time = models.CharField(max_length=255,default="")
     milliseconds = models.IntegerField(null=True)
     fastest_lap = models.IntegerField(null=True)
     fastest_lap_time = models.CharField(max_length=255)
@@ -91,6 +94,9 @@ class SprintResult(models.Model):
     driver = models.ForeignKey('Driver',on_delete=models.PROTECT)
     race = models.ForeignKey('Race',on_delete=models.PROTECT)
     constructor = models.ForeignKey('Constructor',on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.driver} {self.race} {self.constructor}"
 
 class Driver(models.Model):
     driver_id = models.IntegerField()
@@ -170,11 +176,11 @@ class ConstructorStanding(models.Model):
     position_text = models.CharField(max_length=255)
     wins = models.IntegerField()
     race = models.ForeignKey('Race',on_delete=models.PROTECT)
-    driver = models.ForeignKey('Driver',on_delete=models.PROTECT)
+    constructor = models.ForeignKey('Constructor',on_delete=models.PROTECT,default=None)
 
 class ConstructorResult(models.Model):
-    constructor_result = models.IntegerField()
+    constructor_result_id = models.IntegerField()
     points = models.FloatField()
     status = models.CharField(max_length=255)
     race = models.ForeignKey('Race',on_delete=models.PROTECT)
-    driver = models.ForeignKey('Driver',on_delete=models.PROTECT)
+    constructor = models.ForeignKey('Constructor',on_delete=models.PROTECT,default=None)
