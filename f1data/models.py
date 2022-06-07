@@ -12,6 +12,9 @@ class Season(models.Model):
     constructors = models.ManyToManyField('Constructor')
     circuits = models.ManyToManyField('Circuit')
 
+    class Meta:
+        ordering = ['-year']
+
     def __str__(self):
         return f"{self.year}"
 
@@ -36,6 +39,9 @@ class Race(models.Model):
     drivers = models.ManyToManyField('Driver')
     constructors = models.ManyToManyField('Constructor')
     circuit = models.ForeignKey('Circuit',on_delete=models.PROTECT)
+
+    class Meta:
+        ordering = ['-year','-round']
 
     def __str__(self):
         return f"{self.year} {self.round} {self.circuit}"
@@ -168,6 +174,9 @@ class DriverStanding(models.Model):
     wins = models.IntegerField()
     race = models.ForeignKey('Race',on_delete=models.PROTECT)
     driver = models.ForeignKey('Driver',on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.driver} {self.race}"
 
 class ConstructorStanding(models.Model):
     constructor_standings_id = models.IntegerField()
