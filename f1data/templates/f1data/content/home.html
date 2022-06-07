@@ -1,0 +1,165 @@
+{% load driver_constructor %}
+<div class="cotainer">
+  <div class="row my-3">
+    <div class="col ms-5">
+      <h1>Current Formula 1 Season {{ current_season.year }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 ms-auto ps-5">
+      <div class="card">
+        <div class="card-header">
+          <h4>Last Race</h4>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ last_race.name }} Round: {{ last_race.round }} {{ last_race.date }}</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Name</th>
+                <th scope="col">Constructor</th>
+                <th scope="col">Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for result in results %}
+              {% if  result.position <= 3 %}
+              <tr>
+                <td scope="row">{{ result.position }} </td>
+                <td>{{ result.driver.forename }} {{ result.driver.surname }}</td>
+                <td>{{ result.constructor.name }}</td>
+                <td>{{ result.points }}</td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+          <a href="#" class="btn btn-primary">Race Detail</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 me-auto pe-5 d-flex">
+      <div class="card flex-fill">
+        {% if  next_race == None %}
+        {% else %}
+        <div class="card-header">
+          <h4>Next Race</h4>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ next_race.name }} Round: {{ next_race.round }}</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Practice 1</th>
+                {% if next_race.sprint_date %}
+                <th scope="col">Qualifying</th>
+                <th scope="col">Practice 2</th>
+                <th scope="col">Sprint Race</th>
+                <th scope="col">Race</th>
+                {% else %}
+                <th scope="col">Practice 2</th>
+                <th scope="col">Practice 3</th>
+                <th scope="col">Qualifying</th>
+                <th scope="col">Race</th>
+                {% endif %}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">{{ next_race.fp1_date }}</td>
+                {% if next_race.sprint_date %}
+                <td>{{ next_race.quali_date }}</td>
+                <td>{{ next_race.fp2_date }}</td>
+                <td>{{ next_race.sprint_date }}</td>
+                <td>{{ next_race.date }}</td>
+                {% else %}
+                <td>{{ next_race.fp2_date }}</td>
+                <td>{{ next_race.fp3_date }}</td>
+                <td>{{ next_race.quali_date }}</td>
+                <td>{{ next_race.date }}</td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td scope="row">{{ next_race.fp1_time }}</td>
+                {% if next_race.sprint_date %}
+                <td>{{ next_race.quali_time }}</td>
+                <td>{{ next_race.fp2_time }}</td>
+                <td>{{ next_race.sprint_time }}</td>
+                <td>{{ next_race.time }}</td>
+                {% else %}
+                <td>{{ next_race.fp2_time }}</td>
+                <td>{{ next_race.fp3_time }}</td>
+                <td>{{ next_race.quali_time }}</td>
+                <td>{{ next_race.time }}</td>
+                {% endif %}
+              </tr>
+            </tbody>
+          </table>
+          <a href="#" class="btn btn-primary">Race details</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 ms-auto ps-5">
+      <div class="card my-3">
+        <div class="card-header">
+          <h4>Driver Standings</h4>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Name</th>
+                <th scope="col">Constructor</th>
+                <th scope="col">Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for driver_standing in  driver_standings%}
+              <tr>
+                <td scope="row">{{ driver_standing.position }} </td>
+                <td>{{ driver_standing.driver.forename }} {{ driver_standing.driver.surname }}</td>
+                <td>{{ driver_standing | constructor:current_season }}</td>
+                <td>{{ driver_standing.points }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 me-auto pe-5">
+      <div class="card my-3">
+        <div class="card-header">
+          <h4>Constructors Standings</h4>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Constructor</th>
+                <th scope="col">Points</th>
+                <th scope="col">Wins</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for constructor_standing in  constructor_standings%}
+              <tr>
+                <td scope="row">{{ constructor_standing.position }} </td>
+                <td>{{ constructor_standing.constructor.name }}</td>
+                <td>{{ constructor_standing.points }}</td>
+                <td>{{ constructor_standing.wins }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
