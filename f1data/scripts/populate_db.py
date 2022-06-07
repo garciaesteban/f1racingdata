@@ -26,7 +26,7 @@ def run():
     constructor_results = open(
         f"{os.getcwd()}/f1data/scripts/f1db_csv/constructor_results.csv"
     )
-    
+
     drivers = csv.DictReader(drivers)
     constructors = csv.DictReader(constructors)
     circuits = csv.DictReader(circuits)
