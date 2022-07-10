@@ -1,4 +1,27 @@
-<nav aria-label="F1 Seasons">
-  <ul class="pagination">
-  </ul>
-</nav>
+<div class="container">
+  <div class="row row-cols-3 row-cols-sm-1 row-cols-md-3 my-3 g-3">
+    {% for season in seasons %}
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{season.year}}</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Drivers Champion</th>
+                <th scope="col">Constructors Champion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Driver</td>
+                <td>Constructor</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

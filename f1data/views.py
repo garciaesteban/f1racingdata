@@ -32,23 +32,14 @@ def home(request):
     }
     return render(request,template,context)
 
-def season(request,year):
+def season(request):
     template = "f1data/season/season.html"
-    current_season = Season.objects.get(year=year)
-    seasons_pagination = Paginator(Season.objects.all(),10)
-
-    for page in seasons_pagination.page_range:
-        page_queryset = seasons_pagination.page(page).object_list
-        for season in page_queryset:
-            if season == current_season:
-                current_page = page
-
-    current_paginator = seasons_pagination.page(current_page)
+    seasons = Season.objects.all()
 
     context = {
-        "current_season": current_season,
-        "seasons_pagination": seasons_pagination,
-        "current_page": current_page,
-        "current_paginator": current_paginator 
+        "seasons": seasons,
     }
     return render(request,template,context)
+
+def detail_season(request):
+    pass
