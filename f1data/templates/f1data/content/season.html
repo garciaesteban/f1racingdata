@@ -1,3 +1,4 @@
+{% load season_results %}
 <div class="container">
   <div class="row row-cols-3 row-cols-sm-1 row-cols-md-3 my-3 g-3">
     {% for season in seasons %}
@@ -14,11 +15,12 @@
             </thead>
             <tbody>
               <tr>
-                <td>Driver</td>
-                <td>Constructor</td>
+                <td>{{season.year | driver}}</td>
+                <td>{{season.year | constructor}}</td>
               </tr>
             </tbody>
           </table>
+          <a href="#" class="btn btn-primary">Season Details</a>
         </div>
       </div>
     </div>
