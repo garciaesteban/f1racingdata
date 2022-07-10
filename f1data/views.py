@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 from f1data.models import *
-
 # Create your views here.
 def home(request):
     template = "f1data/home/home.html"
@@ -29,5 +29,26 @@ def home(request):
         "driver_standings": driver_standings,
         "constructor_standings": constructor_standings,
         "constructor_results": constructor_results
+    }
+    return render(request,template,context)
+
+def season(request,year):
+    template = "f1data/season/season.html"
+    current_season = Season.objects.get(year=year)
+    seasons_pagination = Paginator(Season.objects.all(),10)
+
+    for page in seasons_pagination.page_range:
+        page_queryset = seasons_pagination.page(page).object_list
+        for season in page_queryset:
+            if season == current_season:
+                current_page = page
+
+    current_paginator = seasons_pagination.page(current_page)
+
+    context = {
+        "current_season": current_season,
+        "seasons_pagination": seasons_pagination,
+        "current_page": current_page,
+        "current_paginator": current_paginator 
     }
     return render(request,template,context)
