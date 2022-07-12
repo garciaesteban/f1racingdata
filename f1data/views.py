@@ -41,5 +41,5 @@ def season(request):
     }
     return render(request,template,context)
 
-def detail_season(request):
-    pass
+def detail_season(request,year):
+    return HttpResponse("Detail Season")
