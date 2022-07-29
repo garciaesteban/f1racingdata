@@ -9,8 +9,13 @@
           <table class="table">
             <thead>
               <tr>
+                {% if forloop.first %}
+                <th scope="col">Drivers Leader</th>
+                <th scope="col">Constructors Leader</th>
+                {% else %}
                 <th scope="col">Drivers Champion</th>
                 <th scope="col">Constructors Champion</th>
+                {% endif %}
               </tr>
             </thead>
             <tbody>
