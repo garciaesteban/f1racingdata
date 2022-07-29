@@ -65,3 +65,15 @@ def drivers(request):
 
 def detail_driver(request,driver):
     return HttpResponse("Detail Driver")
+
+def constructors(request):
+    template = "f1data/constructors/constructors.html"
+    constructors = Constructor.objects.all()
+    context = {
+        'constructors': constructors,
+    }
+
+    return render(request,template,context)
+
+def detail_constructor(request,constructor):
+    return HttpResponse("Detail Constructor")
