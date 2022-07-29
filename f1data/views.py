@@ -54,3 +54,14 @@ def races(request):
 
 def detail_race(request,race):
     return HttpResponse("Detail Race")
+
+def drivers(request):
+    template = "f1data/drivers/drivers.html"
+    drivers = Driver.objects.all()
+    context = {
+        'drivers': drivers,
+    }
+    return render(request,template,context)
+
+def detail_driver(request,driver):
+    return HttpResponse("Detail Driver")
