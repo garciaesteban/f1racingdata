@@ -43,3 +43,14 @@ def season(request):
 
 def detail_season(request,year):
     return HttpResponse("Detail Season")
+
+def races(request):
+    template = "f1data/races/races.html"
+    races = Race.objects.all()
+    context = {
+        'races': races,
+    }
+    return render(request,template,context)
+
+def detail_race(request,race):
+    return HttpResponse("Detail Race")
