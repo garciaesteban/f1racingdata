@@ -234,6 +234,31 @@ class PitStopImport(PitStopDataImport):
             driver=key.get(self.driver),
             stop=key.get(self.stop)).exists()
 
+class LapTimeDataImport(DataImport):
+
+    def clean_dict(self,data):
+        for row in data:
+            temp_model = self.model_table(**row)
+            temp_model = self.model(**self.model_dict(temp_model))
+            temp = temp_model.__dict__
+            if not self.check_if_exists(temp):
+                self.save_model(temp_model)
+
+class LapTimeImport(LapTimeDataImport):
+    name = 'lap_times'
+    model = LapTime
+    model_table = LapTimeTable
+    race = 'race'
+    driver = 'driver'
+    stop = 'stop'
+
+    def model_dict(self,lap_time_data):
+        return lap_time_data.lap_time_model_dict()
+
+    def check_if_exists(self,key):
+        return self.model.objects.filter(race=key.get(self.race),
+            driver=key.get(self.driver),
+            stop=key.get(self.stop)).exists()
 
 def run():
     drivers = DriverImport()
@@ -254,3 +279,7 @@ def run():
     sprint_results.import_data()
     result = ResultImport()
     result.import_data()
+    pitstops = PitStopImport()
+    pitstops.import_data()
+    laptimes = LapTimeImport()
+    laptimes.import_data()
