@@ -103,7 +103,7 @@ class RaceDataImport(DataImport):
         instance = model.objects.get(race_id=instance.race_id)
 
         temp_season = Season.objects.get(year=instance.year)
-        temp_circuit = Circuit.objects.get(circuit_id=instace.circuit.circuit_id)
+        temp_circuit = Circuit.objects.get(circuit_id=instance.circuit.circuit_id)
 
         if not temp_season.races.filter(race_id=create_race.race_id).exists():
             temp_season.races.add(create_race)
@@ -153,6 +153,12 @@ class SprintResultDataImport(DataImport):
         instance.save()
         instance = self.model.objects.get(result_id=instance.result_id)
 
+        year = Race.objects.get(race_id=instance.race.race_id).year
+        season = Season.objects.get(year=year)
+
+        if not season.sprint_results.filter(result_id=instance.result_id).exists():
+            season.sprint_results.add(instance)
+
 class SprintResultImport(SprintResultDataImport):
     name = 'sprint_results'
     model = SprintResult
@@ -164,6 +170,69 @@ class SprintResultImport(SprintResultDataImport):
 
     def check_if_exists(self,key):
         return self.model.objects.filter(result_id=key).exists()
+
+class ResultDataImport(DataImport):
+    def save_model(self,instance):
+        instance.save()
+        instance = self.model.objects.get(result_id=instance.result_id)
+
+        race = Race.objects.get(race_id=instance.race.race_id)
+        season = Season.objects.get(year=race.year)
+        driver = Driver.objects.get(driver_id=instance.driver.driver_id)
+        constructor = Constructor.objects.get(constructor_id=instance.constructor.constructor_id)
+
+        if not season.results.filter(result_id=instance.result_id).exists():
+            season.results.add(instance)
+
+        if not season.drivers.filter(driver_id=driver.driver_id).exists():
+            season.drivers.add(driver)
+
+        if not season.constructors.filter(constructor_id=constructor.constructor_id).exists():
+            season.constructors.add(constructor)
+
+        if not race.drivers.filter(driver_id=driver.driver_id).exists():
+            race.drivers.add(driver)
+
+        if not race.constructors.filter(constructor_id=constructor.constructor_id):
+            race.constructors.add(constructor)
+
+class ResultImport(ResultDataImport):
+    name = 'results'
+    model = Result
+    model_table = ResultTable
+    id = 'result_id'
+
+    def model_dict(self,result_data):
+        return result_data.result_model_dict()
+
+    def check_if_exists(self,key):
+        return self.model.objects.filter(result_id=key).exists()
+
+class PitStopDataImport(DataImport):
+
+    def clean_dict(self,data):
+        for row in data:
+            temp_model = self.model_table(**row)
+            temp_model = self.model(**self.model_dict(temp_model))
+            temp = temp_model.__dict__
+            if not self.check_if_exists(temp):
+                self.save_model(temp_model)
+
+class PitStopImport(PitStopDataImport):
+    name = 'pit_stops'
+    model = PitStop
+    model_table = PitStopTable
+    race = 'race'
+    driver = 'driver'
+    stop = 'stop'
+
+    def model_dict(self,pit_stop_data):
+        return pit_stop_data.pit_stops_model_dict()
+
+    def check_if_exists(self,key):
+        return self.model.objects.filter(race=key.get(self.race),
+            driver=key.get(self.driver),
+            stop=key.get(self.stop)).exists()
 
 
 def run():
@@ -182,3 +251,6 @@ def run():
     qualifying = QualifyingImport()
     qualifying.import_data()
     sprint_results = SprintResultImport()
+    sprint_results.import_data()
+    result = ResultImport()
+    result.import_data()
