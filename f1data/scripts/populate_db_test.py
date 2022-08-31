@@ -29,8 +29,6 @@ class DataImport:
             model = self.model_table(**row)
             model_dict = self.model_table.__dict__[self.model_dict]
             model = self.model(**model_dict(model))
-            #print(model_to_dict(model))
-            print(self.check_if_exists(model))
             if not self.check_if_exists(model):
                 self.save_model(model)
 
@@ -204,6 +202,32 @@ class ConstructorResultImport(DataImport):
     model_dict = 'constructor_result_model_dict'
     filter = {'constructor_result_id': None}
 
+class PitStopImport(DataImport):
+    name = 'pit_stops'
+    model = PitStop
+    model_table = PitStopTable
+    model_dict = 'pit_stops_model_dict'
+
+    def check_if_exists(self,instance):
+        filter = {}
+        filter['race'] = instance.race
+        filter['driver'] = instance.driver
+        filter['stop'] = instance.stop
+        return self.model.objects.filter(**filter).exists()
+
+class LapTimeImport(DataImport):
+    name = 'lap_times'
+    model = LapTime
+    model_table = LapTimeTable
+    model_dict = 'lap_time_model_dict'
+
+    def check_if_exists(self,instance):
+        filter = {}
+        filter['race'] = instance.race
+        filter['driver'] = instance.driver
+        filter['lap'] = instance.lap
+        return self.model.objects.filter(**filter).exists()
+
 def run():
     drivers = DriverImport()
     drivers.import_data()
@@ -229,3 +253,7 @@ def run():
     constructor_standings.import_data()
     constructor_results = ConstructorResultImport()
     constructor_results.import_data()
+    pit_stops = PitStopImport()
+    pit_stops.import_data()
+    lap_times = LapTimeImport()
+    lap_times.import_data()
