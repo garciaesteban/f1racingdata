@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
+from django.views.generic import ListView
 from f1data.models import *
 # Create your views here.
 def home(request):
@@ -31,6 +32,24 @@ def home(request):
         "constructor_results": constructor_results
     }
     return render(request,template,context)
+
+class Seasons(ListView):
+    model = Season
+    context_object_name = 'seasons'
+    paginate_by = 12
+    template_name = "f1data/season/season.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        page_obj = context['page_obj']
+        if page_obj.number > 2 and (page_obj.paginator.num_pages - page_obj.number) > 2:
+            pages = range(page_obj.number-2,page_obj.number+3)
+        elif page_obj.number <= 2:
+            pages = range(1,5)
+        elif (page_obj.paginator.num_pages - page_obj.number) <=2:
+            pages = range(page_obj.paginator.num_pages-5,page_obj.paginator.num_pages+1)
+        context['pages'] = pages
+        return context
 
 def season(request):
     template = "f1data/season/season.html"
