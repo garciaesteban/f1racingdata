@@ -196,6 +196,14 @@ class ConstructorStandingImport(DataImport):
     model_dict = 'constructor_standing_model_dict'
     filter = {'constructor_standings_id': None}
 
+class ConstructorResultImport(DataImport):
+    name = 'constructor_results'
+    model = ConstructorResult
+    model_table = ConstructorResultTable
+    id = 'constructor_result_id'
+    model_dict = 'constructor_result_model_dict'
+    filter = {'constructor_result_id': None}
+
 def run():
     drivers = DriverImport()
     drivers.import_data()
@@ -219,3 +227,5 @@ def run():
     driver_standings.import_data()
     constructor_standings = ConstructorStandingImport()
     constructor_standings.import_data()
+    constructor_results = ConstructorResultImport()
+    constructor_results.import_data()
