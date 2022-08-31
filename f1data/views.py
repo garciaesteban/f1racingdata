@@ -51,15 +51,6 @@ class Seasons(ListView):
         context['pages'] = pages
         return context
 
-def season(request):
-    template = "f1data/season/season.html"
-    seasons = Season.objects.all()
-
-    context = {
-        "seasons": seasons,
-    }
-    return render(request,template,context)
-
 def detail_season(request,year):
     return HttpResponse("Detail Season")
 
