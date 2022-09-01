@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.views.generic import ListView
+from django.views.generic.base import RedirectView
 from f1data.models import *
+
 # Create your views here.
 def home(request):
     template = "f1data/home/home.html"
@@ -54,13 +56,24 @@ class Seasons(ListView):
 def detail_season(request,year):
     return HttpResponse("Detail Season")
 
-def races(request):
-    template = "f1data/races/races.html"
-    races = Race.objects.all()
-    context = {
-        'races': races,
-    }
-    return render(request,template,context)
+class RacesRedirectView(RedirectView):
+    year = Season.objects.first().year
+    url = f'{year}/'
+
+class Races(ListView):
+    template_name = 'f1data/races/races.html'
+    context_object_name = 'races'
+
+    def get_queryset(self,**kwargs):
+        year = self.__dict__['kwargs']['year']
+        return Race.objects.filter(year=year)
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        seasons = Season.objects.values('year')
+        context['seasons'] = seasons
+        context['year'] = self.__dict__['kwargs']['year']
+        return context
 
 def detail_race(request,race):
     return HttpResponse("Detail Race")
