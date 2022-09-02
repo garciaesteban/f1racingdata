@@ -78,6 +78,25 @@ class Races(ListView):
 def detail_race(request,race):
     return HttpResponse("Detail Race")
 
+class DriversRedirectView(RedirectView):
+    year = Season.objects.first().year
+    url = f'{year}/'
+
+class Drivers(ListView):
+    template_name = "f1data/drivers/drivers.html"
+    context_object_name = 'drivers'
+
+    def get_queryset(self,*kwargs):
+        year = self.__dict__['kwargs']['year']
+        return Season.objects.get(year=year).drivers.all()
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        seasons = Season.objects.values('year')
+        context['seasons'] = seasons
+        context['year'] = self.__dict__['kwargs']['year']
+        return context
+
 def drivers(request):
     template = "f1data/drivers/drivers.html"
     drivers = Driver.objects.all()
