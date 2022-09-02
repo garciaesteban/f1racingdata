@@ -96,7 +96,7 @@ class Drivers(ListView):
         context['seasons'] = seasons
         context['year'] = self.__dict__['kwargs']['year']
         return context
-        
+
 def detail_driver(request,driver):
     return HttpResponse("Detail Driver")
 
