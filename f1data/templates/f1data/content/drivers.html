@@ -1,4 +1,18 @@
 <div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-2">
+      <div class="dropdown-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Choose Year
+        </button>
+        <ul class="dropdown-menu">
+          {% for season in seasons %}
+          <li><a class="dropdown-item {% if year == season.year %}active{% endif %}" href="{% url 'f1data:drivers' season.year %}">{{season.year}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
   <div class="row row-cols-3 row-cols-sm-1 row-cols-md-3 my-3 g-3">
     {% for driver in drivers %}
     <div class="col">
