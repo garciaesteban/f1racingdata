@@ -100,14 +100,24 @@ class Drivers(ListView):
 def detail_driver(request,driver):
     return HttpResponse("Detail Driver")
 
-def constructors(request):
-    template = "f1data/constructors/constructors.html"
-    constructors = Constructor.objects.all()
-    context = {
-        'constructors': constructors,
-    }
+class ConstructorsRedirectView(RedirectView):
+    year = Season.objects.first().year
+    url = f'{year}'
 
-    return render(request,template,context)
+class Constructors(ListView):
+    template_name = "f1data/constructors/constructors.html"
+    context_object_name = 'constructors'
+
+    def get_queryset(self,**kwargs):
+        year = self.__dict__['kwargs']['year']
+        return Season.objects.get(year=year).constructors.all()
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        seasons = Season.objects.values('year')
+        context['seasons'] = seasons
+        context['year'] = self.__dict__['kwargs']['year']
+        return context
 
 def detail_constructor(request,constructor):
     return HttpResponse("Detail Constructor")
