@@ -121,3 +121,39 @@ class Constructors(ListView):
 
 def detail_constructor(request,constructor):
     return HttpResponse("Detail Constructor")
+
+class DriverStandingsRedirectView(RedirectView):
+
+    def get_redirect_url(self,*args,**kwargs):
+        year = Season.objects.first().year
+        round = DriverStanding.objects.order_by("race").first().race.round
+        return f"{year}/"
+
+class DriverStandings(ListView):
+    template_name = "f1data/driver_standings/driver_standings.html"
+    context_object_name = 'driver_standings'
+
+    def get_queryset(self,**kwargs):
+        year = self.kwargs['year']
+        races = Race.objects.filter(year=year)
+        driver_standings = []
+        for race in races:
+            query_set = DriverStanding.objects.filter(race=race).order_by('position')
+            if query_set.exists():
+                driver_standings.append(query_set)
+        return driver_standings
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        rounds = []
+        season = self.kwargs['year']
+        context['current_season'] = Season.objects.get(year=season)
+        context['seasons'] = Season.objects.values('year')
+        races = Race.objects.filter(year=season).order_by('round')
+
+        for race in races:
+            if DriverStanding.objects.filter(race=race).exists():
+                rounds.append(race)
+
+        context['races'] = rounds
+        return context
