@@ -1,0 +1,58 @@
+{% load driver_constructor %}
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-1">
+      <button class="btn btn-secondary dropdown-toggle me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ current_season }}
+      </button>
+      <ul class="dropdown-menu">
+        {% for season in seasons %}
+        <li><a class="dropdown-item {% if year == season.year %}active{% endif %}" href="{% url 'f1data:constructors_standings' season.year %}">{{season.year}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Choose Round
+        </button>
+        <ul class="dropdown-menu">
+          {% for race in races %}
+          <li><a class="dropdown-item" href="#{{race.round}}">{{race.round}}</a></li>
+          {% endfor %}
+        </ul>
+    </div>
+  </div>
+  <div class="row row-cols-3 row-cols-xs-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 my-2 g-3">
+    {% for standing in constructor_standings %}
+    <div class="col">
+      <div id="{{standing.first.race.round}}" class="card">
+        <div class="card-header">
+          <h5 class="card-title">{{standing.first.race.name}} <br>Round: {{standing.first.race.round}}</h5>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Constructor</th>
+                <th scope="col">Points</th>
+                <th scope="col">Wins</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for constructor in  standing%}
+              <tr>
+                <td scope="row">{{ constructor.position }} </td>
+                <td>{{ constructor.constructor.name }}</td>
+                <td>{{ constructor.points }}</td>
+                <td>{{ constructor.wins }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
