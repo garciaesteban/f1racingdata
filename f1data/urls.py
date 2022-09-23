@@ -17,4 +17,6 @@ urlpatterns = [
     path('constructors/<int:constructor>/', views.detail_constructor, name="detail_constructor"),
     path('driver_standings/<int:year>/', views.DriverStandings.as_view(), name="driver_standings"),
     path('driver_standings/', views.DriverStandingsRedirectView.as_view(), name="driver_standings"),
+    path('constructors_standings/<int:year>/', views.ConstructorStandings.as_view(), name="constructors_standings"),
+    path('constructors_standings/', views.ConstructorStandingsRedirectView.as_view(), name="constructors_standings"),
 ]
